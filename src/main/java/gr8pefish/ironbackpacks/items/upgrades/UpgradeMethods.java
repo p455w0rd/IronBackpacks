@@ -30,6 +30,8 @@ public class UpgradeMethods {
 
     //===============================hasUpgrade Methods=====================================
 
+    //ToDo: Refactor to 1 static call with Enum param
+
     //Remove this one?
     public static boolean hasAdditionalUpgradesUpgrade(ArrayList<ItemStack> upgrades){
         boolean hasUpgrade = false;
@@ -55,15 +57,26 @@ public class UpgradeMethods {
         return hasUpgrade;
     }
 
+    public static boolean hasClickUpgrade(ArrayList<ItemStack> upgrades){
+        boolean hasUpgrade = false;
+        for (ItemStack stack : upgrades){
+            if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.clickUpgrade)) {
+                    hasUpgrade = true;
+                    break;
+                }
+            }
+        }
+        return hasUpgrade;
+    }
+
     public static boolean hasDamageBarUpgrade(ArrayList<ItemStack> upgrades){ //TODO: change this to cached NBTTag value so it doesn't always reference it dynamically to see if I need to render damage bar
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades) {
             if (ItemIUpgradeRegistry.isInstanceOfIUpgrade(stack)) {
-                if (stack.getItemDamage() < ItemIUpgradeRegistry.getIPackSize()) {
-                    if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)) {
-                        hasUpgrade = true;
-                        break;
-                    }
+                if (ItemIUpgradeRegistry.getItemIUpgrade(stack.getItemDamage()).equals(ItemRegistry.damageBarUpgrade)) {
+                    hasUpgrade = true;
+                    break;
                 }
             }
         }
@@ -165,7 +178,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -178,7 +191,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingSmallUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -191,7 +204,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.craftingTinyUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -204,7 +217,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterBasicUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -217,7 +230,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterFuzzyUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -230,7 +243,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterOreDictUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -243,7 +256,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterModSpecificUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -256,7 +269,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterVoidUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -269,7 +282,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterAdvancedUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -282,7 +295,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.filterMiningUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }
@@ -295,7 +308,7 @@ public class UpgradeMethods {
         boolean hasUpgrade = false;
         for (ItemStack stack : upgrades){
             if (ItemIUpgradeRegistry.isInstanceOfIConfigurableUpgrade(stack)) {
-                if (ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)) {
+                if (ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack.getItemDamage()).equals(ItemRegistry.restockingUpgrade)) {
                     hasUpgrade = true;
                     break;
                 }

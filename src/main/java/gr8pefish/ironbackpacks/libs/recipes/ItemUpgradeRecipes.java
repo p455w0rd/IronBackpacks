@@ -1,5 +1,6 @@
 package gr8pefish.ironbackpacks.libs.recipes;
 
+import gr8pefish.ironbackpacks.api.items.upgrades.ItemIUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemICraftingRegistry;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
@@ -26,6 +27,12 @@ public class ItemUpgradeRecipes {
             "sps",
             " w ",
             'w', Blocks.WOODEN_BUTTON, 's', Blocks.STONE_BUTTON, 'p', "paper");
+
+    public static ShapedOreRecipe clickUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.clickUpgrade)),
+            " w ",
+            "scs",
+            " w ",
+            'w', Blocks.WOODEN_BUTTON, 's', Blocks.STONE_BUTTON, 'c', new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.buttonUpgrade)));
 
     public static ShapedOreRecipe damageBarUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.damageBarUpgrade)),
             "bsb",
@@ -87,7 +94,7 @@ public class ItemUpgradeRecipes {
             "rpb",
             "tct",
             "ttt",
-            'r', Blocks.field_189880_di, 'b', "blockRedstone", 'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
+            'r', "dustRedstone", 'b', "blockRedstone", 'p', Blocks.PISTON, 't', "workbench", //could do bone meal -> bone block
             'c', new ItemStack(ItemRegistry.craftingItem, 1, ItemICraftingRegistry.getIndexOf(ItemRegistry.upgradeCore)));
 
     public static ShapedOreRecipe craftingSmallUpgradeRecipe = new ShapedOreRecipe(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIConfigurableUpgrade(ItemRegistry.craftingSmallUpgrade)),

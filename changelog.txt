@@ -2,13 +2,15 @@
 Version 1.10.2 - 2.2.5
 ------------------------------------------------------
 Additions
-- None
+- Added a new upgrade: 'Click Upgrade'
+    - Allows you to right click to open a backpack directly from *any* inventory. Shift right click to open the configurable inventory directly as well.
 
 Changes
-- None
+- Removed inherent ability to right click a backpack from another to open it (replace with the click upgrade, which has more functionality anyway).
+- Made eternity upgrade cheaper.
 
 Bug Fixes
-- None
+- Fix crafting recipe for crafting upgrade.
 ------------------------------------------------------
 Version 1.10.2 - 2.2.4
 ------------------------------------------------------

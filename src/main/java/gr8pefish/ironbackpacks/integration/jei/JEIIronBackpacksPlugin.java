@@ -46,6 +46,7 @@ public class JEIIronBackpacksPlugin extends BlankModPlugin {
         //Add upgrade descriptions
         //basic
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.additionalUpgradePointsUpgrade)), "jei.description.upgrade.additionalUpgradePoints");
+        registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.clickUpgrade)), "jei.description.upgrade.click");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.buttonUpgrade)), "jei.description.upgrade.button");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.damageBarUpgrade)), "jei.description.upgrade.damageBar");
         registry.addDescription(new ItemStack(ItemRegistry.upgradeItem, 1, ItemIUpgradeRegistry.getIndexOfIUpgrade(ItemRegistry.depthUpgrade)), "jei.description.upgrade.depth");

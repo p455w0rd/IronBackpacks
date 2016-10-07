@@ -10,6 +10,7 @@ item.ironbackpacks.backpack.diamondBackpackStorageEmphasis.name=Diamond Backpack
 item.ironbackpacks.backpack.diamondBackpackUpgradeEmphasis.name=Diamond Backpack (Upgrade Emphasis)
 
 item.ironbackpacks.upgrade.button.name=Button Upgrade
+item.ironbackpacks.upgrade.click.name=Click Upgrade
 item.ironbackpacks.upgrade.nesting.name=Nesting Upgrade
 item.ironbackpacks.upgrade.nestingAdvanced.name=Advanced Nesting Upgrade
 item.ironbackpacks.upgrade.damageBar.name=Damage Bar Upgrade
@@ -19,7 +20,7 @@ item.ironbackpacks.upgrade.filterOreDict.name=Ore Dictionary Filter Upgrade
 item.ironbackpacks.upgrade.filterModSpecific.name=Mod Specific Filter Upgrade
 item.ironbackpacks.upgrade.filterAdvanced.name=Advanced Filter Upgrade
 item.ironbackpacks.upgrade.restocking.name=Restocking Upgrade
-item.ironbackpacks.upgrade.crafting.name=Compressions Upgrade
+item.ironbackpacks.upgrade.crafting.name=Compression Upgrade
 item.ironbackpacks.upgrade.craftingSmall.name=Small Compression Upgrade
 item.ironbackpacks.upgrade.craftingTiny.name=Decompression Upgrade
 item.ironbackpacks.upgrade.renaming.name=Renaming Upgrade
@@ -101,6 +102,7 @@ tooltip.ironbackpacks.backpack.tier.goldBackpack.name=Gold Backpack
 tooltip.ironbackpacks.backpack.tier.diamondBackpack.name=Diamond Backpack
 
 tooltip.ironbackpacks.upgrade.button.desc=Adds buttons to quickly move items to and from your backpack, as well as a button to sort your backpack quickly.
+tooltip.ironbackpacks.upgrade.click.desc=Allows you to right click the backpack from any inventory to directly open it (works with shift-right click as well).
 tooltip.ironbackpacks.upgrade.nesting.desc=Allows you to place any backpack of a previous tier inside the backpack.
 tooltip.ironbackpacks.upgrade.bar.desc=Adds a damage bar to visually represent how full the backpack is at a glance.
 tooltip.ironbackpacks.upgrade.soulbound.desc=Allows you to keep the backpack when you die. The upgrade disappears after death though (you will have to reapply it if you want it again).
@@ -203,6 +205,8 @@ Moves everything from your inventory (the slots above your hot-bar) to the backp
 Moves everything from your hot-bar to the backpack. \n \n\
 Sorts the backpack (condenses each stack of items and rearranges the backpack according to each item's ID). \n \n\
 Adds buttons to each category in the configurable inventory which quickly clears the items in the category of the respective button.
+jei.description.upgrade.click=This upgrade adds the ability to right click the backpack from any inventory to directly open it. Shift right clicking will open the configurable inventory directly. \n \n\
+For example, when you have a backpack open and one nested inside of it with this upgrade applied, you could right click that backpack item to open its inventory without having to take it out.
 jei.description.upgrade.damageBar=This upgrades adds a damage bar to the backpack which reflects how full it is (in regards to it's total capacity), meaning that you can simply glance down at the \
 backpack to get a quick visual representation of how much space you have left. The level of fullness is representative of the total storage, not just the total slots used (so if it is "full" \
 of items that have a stack size of 1 (with a maximum stack size of 64), the damage bar will not be fooled into thinking that the backpack is really full).

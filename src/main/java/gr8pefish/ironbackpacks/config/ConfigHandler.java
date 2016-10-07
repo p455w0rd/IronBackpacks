@@ -33,6 +33,9 @@ public class ConfigHandler {
     public static boolean buttonUpgradeDisabled;
     public static int buttonUpgradeCost;
     public static int buttonUpgradeTier;
+    public static boolean clickUpgradeDisabled;
+    public static int clickUpgradeCost;
+    public static int clickUpgradeTier;
     public static boolean nestingUpgradeDisabled;
     public static int nestingUpgradeCost;
     public static int nestingUpgradeTier;
@@ -193,7 +196,7 @@ public class ConfigHandler {
 
 
         String category_upgrade = "4) Upgrade Traits";
-        config.addCustomCategoryComment(category_upgrade, "The configurable traits of the upgrades. Be warned that the ability to disable an upgrade is experimental, it may cause odd errors.");
+        config.addCustomCategoryComment(category_upgrade, "The configurable traits of the upgrades. Be warned that the ability to disable an upgrade is broken, and does NOT work yet.");
 
         category = category_upgrade + "- 1)Basic Upgrades";
         config.addCustomCategoryComment(category, "The configurable traits of the \"normal\" upgrades.");
@@ -202,6 +205,11 @@ public class ConfigHandler {
                 "This upgrade allows the player to move items to and from the backpack quickly by use of some button.");
         buttonUpgradeTier = config.getInt("Button Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the button upgrade.");
         buttonUpgradeDisabled = config.getBoolean("Button Upgrade Disabled", category, false, "If the button upgrade should not exist.");
+
+        clickUpgradeCost = config.getInt("Click Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the click upgrade.\n" +
+                "This upgrade allows the player to click a backpack from an inventory to directly open it.");
+        clickUpgradeTier = config.getInt("Click Upgrade Tier", category, 0, 0, 3, "The minimum backpack tier for the click upgrade.");
+        clickUpgradeDisabled = config.getBoolean("Click Upgrade Disabled", category, false, "If the click upgrade should not exist.");
 
         damageBarUpgradeCost = config.getInt("Damage Bar Upgrade Cost", category, 2, 0, 100, "The cost (in upgrade points) for the damage bar upgrade.\n" +
                 "This upgrade adds a damage bar that visually represents how full the backpack is at a glance.");

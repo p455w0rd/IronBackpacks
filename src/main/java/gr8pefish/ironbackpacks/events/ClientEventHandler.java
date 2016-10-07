@@ -3,10 +3,12 @@ package gr8pefish.ironbackpacks.events;
 import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.client.KeyHandler;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
+import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.server.ItemStackMessage;
 import gr8pefish.ironbackpacks.network.server.SingleByteMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
+import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -54,8 +56,10 @@ public class ClientEventHandler {
                     if (slot != null && slot.getHasStack()) { //needs an item
                         ItemStack stack = slot.getStack();
                         if (stack.getItem() instanceof ItemBackpack) { //needs to be a backpack
-                            NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
-                            event.setCanceled(true); //cancel pickup/further processing
+                            if (UpgradeMethods.hasClickUpgrade(IronBackpacksHelper.getUpgradesAppliedFromNBT(stack))) { //need the upgrade
+                                NetworkingHandler.network.sendToServer(new ItemStackMessage(stack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? ItemStackMessage.SNEAKING : ItemStackMessage.NOT_SNEAKING)); //open the backpack via pseudo-right click on server
+                                event.setCanceled(true); //cancel pickup/further processing
+                            }
                         }
                     }
                 }

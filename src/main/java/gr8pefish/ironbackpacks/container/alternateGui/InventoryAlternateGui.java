@@ -430,7 +430,7 @@ public class InventoryAlternateGui implements IInventory {
                 int indexRemoved = 0;
                 if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI)){
                     ItemStack stack = ItemStack.loadItemStackFromNBT(nbtTagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI));
-                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack);
+                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack);
                     indexRemoved = ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(altGuiUpgrade);
                     hasUpgradeRemoved = true;
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.REMOVED_ALT_GUI);
@@ -439,7 +439,7 @@ public class InventoryAlternateGui implements IInventory {
                 int indexAdded = 0;
                 if (nbtTagCompound.hasKey(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI)){
                     ItemStack stack = ItemStack.loadItemStackFromNBT(nbtTagCompound.getCompoundTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI));
-                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfingurableUpgrade(stack);
+                    ItemIConfigurableUpgrade altGuiUpgrade = ItemIUpgradeRegistry.getItemIConfigurableUpgrade(stack);
                     indexAdded = ItemIUpgradeRegistry.getUninflatedIndexOfConfigurableUpgrade(altGuiUpgrade);
                     hasUpgradeAdded = true;
                     nbtTagCompound.removeTag(IronBackpacksConstants.NBTKeys.ADDED_ALT_GUI);

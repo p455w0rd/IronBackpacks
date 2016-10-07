@@ -66,9 +66,11 @@ public class RecipeRegistry {
         ItemRegistry.basicBackpack.setItemRecipe(ItemBackpackRecipes.basicBackpackRecipe);
     }
 
+    //ToDo: Crashes if commented out upgrade. Test w/ disable upgrade feature
     private static void setUpgradeRecipes(){
         ItemRegistry.additionalUpgradePointsUpgrade.setItemRecipe(ItemUpgradeRecipes.additionalUpgradePointsRecipe);
         ItemRegistry.buttonUpgrade.setItemRecipe(ItemUpgradeRecipes.buttonUpgradeRecipe);
+//        ItemRegistry.clickUpgrade.setItemRecipe(ItemUpgradeRecipes.clickUpgradeRecipe);
         ItemRegistry.damageBarUpgrade.setItemRecipe(ItemUpgradeRecipes.damageBarUpgradeRecipe);
         ItemRegistry.depthUpgrade.setItemRecipe(ItemUpgradeRecipes.depthUpgradeRecipe);
         ItemRegistry.eternityUpgrade.setItemRecipe(ItemUpgradeRecipes.eternityUpgradeRecipe);

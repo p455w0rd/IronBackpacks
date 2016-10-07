@@ -48,6 +48,7 @@ public class ItemRegistry {
     public static ItemIUpgrade damageBarUpgrade;
     public static ItemIUpgrade depthUpgrade;
     public static ItemIUpgrade eternityUpgrade;
+    public static ItemIUpgrade clickUpgrade;
     public static ItemIUpgrade renamingUpgrade;
     //conflicting
     public static ItemIConflictingUpgrade nestingUpgrade;
@@ -184,6 +185,10 @@ public class ItemRegistry {
             buttonUpgrade = new ItemIUpgrade("button", ConfigHandler.buttonUpgradeCost, ConfigHandler.buttonUpgradeTier, LocalizedStrings.Upgrades.BUTTON_DESCRIPTION);
             ItemIUpgradeRegistry.registerItemPackUpgrade(buttonUpgrade);
         }
+//        if (!ConfigHandler.clickUpgradeDisabled) {
+//            clickUpgrade = new ItemIUpgrade("click", ConfigHandler.clickUpgradeCost, ConfigHandler.clickUpgradeTier, LocalizedStrings.Upgrades.CLICK_DESCRIPTION);
+//            ItemIUpgradeRegistry.registerItemPackUpgrade(clickUpgrade);
+//        }
         if (!ConfigHandler.damageBarUpgradeDisabled) {
             damageBarUpgrade = new ItemIUpgrade("damageBar", ConfigHandler.damageBarUpgradeCost, ConfigHandler.damageBarUpgradeTier, LocalizedStrings.Upgrades.DAMAGE_BAR_DESCRIPTION);
             ItemIUpgradeRegistry.registerItemPackUpgrade(damageBarUpgrade);
@@ -271,8 +276,7 @@ public class ItemRegistry {
         }
 
 
-
-        //Crafting Items (alphabetical order)
+        //Crafting Items
         craftingItem = (ItemCrafting) registerItem(new ItemCrafting(), IronBackpacksAPI.ITEM_CRAFTING_BASE_NAME);
         //sub items
         upgradeCore = new ItemICrafting("upgradeCore");
@@ -306,6 +310,7 @@ public class ItemRegistry {
         //normal upgrades
         ItemIUpgradeRegistry.registerItemIUpgradeTexture(additionalUpgradePointsUpgrade, "ItemUpgradeAdditionalUpgradePoints");
         ItemIUpgradeRegistry.registerItemIUpgradeTexture(buttonUpgrade, "ItemUpgradeButton");
+        ItemIUpgradeRegistry.registerItemIUpgradeTexture(clickUpgrade, "ItemUpgradeClick");
         ItemIUpgradeRegistry.registerItemIUpgradeTexture(damageBarUpgrade, "ItemUpgradeDamageBar");
         ItemIUpgradeRegistry.registerItemIUpgradeTexture(depthUpgrade, "ItemUpgradeDepth");
         ItemIUpgradeRegistry.registerItemIUpgradeTexture(eternityUpgrade, "ItemUpgradeEternity");

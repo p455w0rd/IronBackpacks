@@ -6,6 +6,7 @@ import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConfigurableUpgrade;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConflictingUpgrade;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIUpgrade;
 import gr8pefish.ironbackpacks.api.items.upgrades.interfaces.IUpgrade;
+import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
@@ -24,9 +25,15 @@ public class ItemIUpgradeRegistry {
     private static List<ItemIConflictingUpgrade> upgradesIConflictingUpgrade = new ArrayList<>(); //the IConflictingUpgrades registered
     private static List<ItemIConfigurableUpgrade> upgradesIConfigurableUpgrade = new ArrayList<>(); //the IConfigurableUpgrades registered
 
+    private static List<ItemIUpgrade> upgradesAdditional = new ArrayList<>(); //the IUpgrades added after (keeps item id's okay for moving worlds)
+
     //=======================Register the items==============================
 
     public static void registerItemPackUpgrade(ItemIUpgrade item) {
+        if (item == ItemRegistry.clickUpgrade) { //special handling
+            upgradesAdditional.add(item);
+            return;
+        }
         if (!upgradesIUpgrade.contains(item))
             upgradesIUpgrade.add(item);
     }
@@ -80,7 +87,7 @@ public class ItemIUpgradeRegistry {
     }
 
     public static boolean isInstanceOfIUpgrade(ItemStack stack){
-        return (stack.getItemDamage() < upgradesIUpgrade.size());
+        return (stack.getItemDamage() < upgradesIUpgrade.size() || stack.getItemDamage() == getInflatedSizeOfConflicting() + 1);
     }
 
     public static boolean isInstanceOfIConflictingUpgrade(ItemStack stack){
@@ -99,7 +106,7 @@ public class ItemIUpgradeRegistry {
         else if (isInstanceOfIConflictingUpgrade(itemStack))
             return getItemIConflictingUpgrade(itemStack.getItemDamage());
         else if (isInstanceOfIConfigurableUpgrade(itemStack))
-            return getItemIConfingurableUpgrade(itemStack.getItemDamage());
+            return getItemIConfigurableUpgrade(itemStack.getItemDamage());
         else {
             throw new RuntimeException("No items upgrade found here");
         }
@@ -115,13 +122,15 @@ public class ItemIUpgradeRegistry {
         return upgradesIConflictingUpgrade.get(stack.getItemDamage() - upgradesIUpgrade.size());
     }
 
-    public static ItemIConfigurableUpgrade getItemIConfingurableUpgrade(ItemStack stack) {
+    public static ItemIConfigurableUpgrade getItemIConfigurableUpgrade(ItemStack stack) {
         return upgradesIConfigurableUpgrade.get(stack.getItemDamage() - getInflatedSizeOfConflicting());
     }
 
     //damage value specific methods
 
     public static ItemIUpgrade getItemIUpgrade(int damageValue) {
+        if (damageValue == (getTotalSize() - upgradesAdditional.size()))
+            return upgradesAdditional.get(0);
         return upgradesIUpgrade.get(damageValue);
     }
 
@@ -129,13 +138,15 @@ public class ItemIUpgradeRegistry {
         return upgradesIConflictingUpgrade.get(damageValue - upgradesIUpgrade.size());
     }
 
-    public static ItemIConfigurableUpgrade getItemIConfingurableUpgrade(int damageValue) {
+    public static ItemIConfigurableUpgrade getItemIConfigurableUpgrade(int damageValue) {
         return upgradesIConfigurableUpgrade.get(damageValue - getInflatedSizeOfConflicting());
     }
 
     //=================================Helper Index Methods==================================
 
     public static int getIndexOfIUpgrade(ItemIUpgrade item) {
+        if (item == ItemRegistry.clickUpgrade)
+            return upgradesIUpgrade.size(); //includes +1 natively
         return upgradesIUpgrade.indexOf(item);
     }
 
@@ -159,23 +170,21 @@ public class ItemIUpgradeRegistry {
         return upgradesIConfigurableUpgrade.indexOf(upgrade);
     }
 
-    public static int getIPackSize(){
-        return upgradesIUpgrade.size();
-    }
-
     public static int getTotalSize() {
-        return upgradesIUpgrade.size() + upgradesIConflictingUpgrade.size() + upgradesIConfigurableUpgrade.size();
+        return upgradesIUpgrade.size() + upgradesIConflictingUpgrade.size() + upgradesIConfigurableUpgrade.size() + upgradesAdditional.size();
     }
 
     //======================================Miscellaneous Helper Methods==========================================
 
-    public static IRecipe getItemRecipe(int index){
+    public static IRecipe getItemRecipe(int index){ //ToDo WILL BREAK
         if (index < upgradesIUpgrade.size()){
             return upgradesIUpgrade.get(index).getItemRecipe(null);
         }else if (index < getInflatedSizeOfConflicting()){
             return getItemIConflictingUpgrade(index).getItemRecipe(null);
-        }else {
-            return getItemIConfingurableUpgrade(index).getItemRecipe(null);
+        }else if (index < getInflatedSizeOfConfigurable()){
+            return getItemIConfigurableUpgrade(index).getItemRecipe(null);
+        }else{ //has to be click
+            return upgradesAdditional.get(0).getItemRecipe(null);
         }
     }
 }
