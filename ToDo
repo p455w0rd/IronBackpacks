@@ -4,6 +4,8 @@ To Do:
         Add in shift right click functionality
         Add it all as an upgrade
 
+        The IDs don't change, it is what the ID maps to. So large picture is add the new upgrade as id #20 and implement custom handling for it to be treated as a normal IUpgrade.
+
 
     Misc Ideas:
         Tooltip for storage emphasis shows how much space?
