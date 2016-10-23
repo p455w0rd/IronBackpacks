@@ -13,7 +13,6 @@ import gr8pefish.ironbackpacks.container.backpack.ContainerBackpack;
 import gr8pefish.ironbackpacks.container.backpack.InventoryBackpack;
 import gr8pefish.ironbackpacks.items.upgrades.UpgradeMethods;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.TextUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -147,19 +146,15 @@ public class ItemBackpack extends ItemIUpgradableITieredBackpack implements IBac
                 list.add(TextUtils.localizeEffect("tooltip.ironbackpacks.shift"));
         }
 
-        if (advanced && NBTUtils.hasUUID(stack))
-            list.add(TextUtils.localize("tooltip.ironbackpacks.uuid", NBTUtils.getUUID(stack)));
     }
 
     //=============================================================================Helper Methods===================================================================================
 
     public ActionResult<ItemStack> handleBackpackOpening(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand, boolean knownShift){
         if (world.isRemote){ //client side
-            NBTUtils.setUUID(itemStack);
             PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack); //need to update on client side so has access to backpack for GUI's backpack stack's display name //TODO: client side
             return new ActionResult(EnumActionResult.SUCCESS, itemStack);
         } else {
-            NBTUtils.setUUID(itemStack);
             PlayerWearingBackpackCapabilities.setCurrentBackpack(player, itemStack);
             boolean sneaking = knownShift ? true : player.isSneaking();
             if (!sneaking){

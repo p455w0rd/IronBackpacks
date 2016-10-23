@@ -7,7 +7,6 @@ import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.Logger;
-import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +99,6 @@ public class SingleByteMessage implements IMessage {
                     player = ctx.getServerHandler().playerEntity;
                     ItemStack backpackStack = PlayerWearingBackpackCapabilities.getEquippedBackpack(player);
                     if (backpackStack != null) {
-                        NBTUtils.setUUID(backpackStack);
                         PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
                         NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
                         backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND);
