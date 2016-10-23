@@ -4,7 +4,6 @@ import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabili
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.network.NetworkingHandler;
 import gr8pefish.ironbackpacks.network.client.ClientCurrentPackMessage;
-import gr8pefish.ironbackpacks.util.NBTUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -53,9 +52,8 @@ public class ItemStackMessage implements IMessage {
             EntityPlayer player = ctx.getServerHandler().playerEntity;
             ItemStack backpackStack = message.stack;
             if (backpackStack != null) {
-                NBTUtils.setUUID(backpackStack);
-                PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
-                NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
+//                PlayerWearingBackpackCapabilities.setCurrentBackpack(player, backpackStack);
+//                NetworkingHandler.network.sendTo(new ClientCurrentPackMessage(backpackStack), (EntityPlayerMP)player);
                 if (message.isSneaking == NOT_SNEAKING)
                     backpackStack.useItemRightClick(player.worldObj, player, EnumHand.MAIN_HAND); //normal right click open
                 else
