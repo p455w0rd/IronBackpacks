@@ -1,10 +1,8 @@
 package gr8pefish.ironbackpacks.container.alternateGui;
 
 import gr8pefish.ironbackpacks.api.client.gui.button.ButtonNames;
-import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
 import gr8pefish.ironbackpacks.api.items.upgrades.ItemIConfigurableUpgrade;
 import gr8pefish.ironbackpacks.api.register.ItemIUpgradeRegistry;
-import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.container.slot.BackpackSlot;
 import gr8pefish.ironbackpacks.container.slot.NestingBackpackSlot;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
@@ -13,7 +11,6 @@ import gr8pefish.ironbackpacks.registry.GuiButtonRegistry;
 import gr8pefish.ironbackpacks.registry.ItemRegistry;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
 import gr8pefish.ironbackpacks.util.Logger;
-import gr8pefish.ironbackpacks.util.NBTUtils;
 import gr8pefish.ironbackpacks.util.helpers.IronBackpacksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -28,7 +25,6 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 /**
  * The inventory used when in the alternate gui of the backpack
@@ -256,7 +252,7 @@ public class InventoryAlternateGui implements IInventory {
      * @param nbtTagCompound - the tag compound
      */
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
-        nbtTagCompound = findParentItemStack(player).getTagCompound();
+        backpackStack.getTagCompound();
         if (nbtTagCompound == null) Logger.warn("Error saving in inventory alternate gui.");
         int startIndex = 0; //need to start/increment at the slot number appropriate to the amount of valid upgrades
 
@@ -417,7 +413,7 @@ public class InventoryAlternateGui implements IInventory {
      * @param nbtTagCompound - the tag compound
      */
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
-        backpackStack = findParentItemStack(player);
+
         if (backpackStack != null) {
 
             nbtTagCompound = backpackStack.getTagCompound();
@@ -568,33 +564,6 @@ public class InventoryAlternateGui implements IInventory {
                 this.inventory[j] = ItemStack.loadItemStackFromNBT(stackTag);
             }
         }
-    }
-
-    /**
-     * Helper method to get the stack, and make sure it is unique.
-     * @param entityPlayer - the player to check
-     * @return - the itemstack if it is found, null otherwise
-     */
-    public ItemStack findParentItemStack(EntityPlayer entityPlayer) {
-        if (NBTUtils.hasUUID(backpackStack)) {
-            UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
-            for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++) {
-                ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
-                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTUtils.hasUUID(itemStack)) {
-                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
-                        return itemStack;
-                    }
-                }
-            }
-            ItemStack equipped = PlayerWearingBackpackCapabilities.getEquippedBackpack(entityPlayer);
-            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTUtils.hasUUID(equipped)) {
-                if (equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
-                    return equipped;
-                }
-            }
-
-        }
-        return null;
     }
 
 }

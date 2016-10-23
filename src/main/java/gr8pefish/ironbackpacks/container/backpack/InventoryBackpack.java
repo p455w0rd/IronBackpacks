@@ -1,10 +1,7 @@
 package gr8pefish.ironbackpacks.container.backpack;
 
-import gr8pefish.ironbackpacks.api.items.backpacks.interfaces.IBackpack;
-import gr8pefish.ironbackpacks.capabilities.player.PlayerWearingBackpackCapabilities;
 import gr8pefish.ironbackpacks.items.backpacks.ItemBackpack;
 import gr8pefish.ironbackpacks.util.IronBackpacksConstants;
-import gr8pefish.ironbackpacks.util.NBTUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -15,8 +12,6 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.util.Constants;
-
-import java.util.UUID;
 
 /**
  * The inventory used when opening the backpack normally.
@@ -265,7 +260,7 @@ public class InventoryBackpack implements IInventory {
      */
     public void writeToNBT(NBTTagCompound nbtTagCompound){
         if (!player.worldObj.isRemote) { //server side only
-            ItemStack tempStack = findParentItemStack(player);
+            ItemStack tempStack = backpackStack;
             ItemStack stackToUse = (tempStack == null) ? backpackStack : tempStack;
 
             nbtTagCompound = stackToUse.getTagCompound();
@@ -292,7 +287,7 @@ public class InventoryBackpack implements IInventory {
     //ToDo: Really need to remove this nonsense in next refactor
     public void readFromNBT(NBTTagCompound nbtTagCompound){
         if (!player.worldObj.isRemote) { //server side only
-            ItemStack tempStack = findParentItemStack(player);
+            ItemStack tempStack = backpackStack;
             backpackStack = (tempStack == null) ? backpackStack : tempStack;
             if (backpackStack != null) {
                 nbtTagCompound = backpackStack.getTagCompound();
@@ -348,33 +343,5 @@ public class InventoryBackpack implements IInventory {
                 }
             }
         }
-    }
-
-    /**
-     * Helper method to get the stack, and make sure it is unique.
-     * @param entityPlayer - the player to check
-     * @return - the itemstack if it is found, null otherwise
-     */
-    private ItemStack findParentItemStack(EntityPlayer entityPlayer){
-        if (NBTUtils.hasUUID(backpackStack)){
-            UUID parentUUID = new UUID(backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID), backpackStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID));
-            for (int i = 0; i < entityPlayer.inventory.getSizeInventory(); i++){
-                ItemStack itemStack = entityPlayer.inventory.getStackInSlot(i);
-
-                if (itemStack != null && itemStack.getItem() instanceof IBackpack && NBTUtils.hasUUID(itemStack)){
-                    if (itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && itemStack.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()){
-                        return itemStack;
-                    }
-                }
-            }
-
-            ItemStack equipped = PlayerWearingBackpackCapabilities.getEquippedBackpack(entityPlayer);
-            if (equipped != null && equipped.getItem() instanceof IBackpack && NBTUtils.hasUUID(equipped)) {
-                if (equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.MOST_SIG_UUID) == parentUUID.getMostSignificantBits() && equipped.getTagCompound().getLong(IronBackpacksConstants.Miscellaneous.LEAST_SIG_UUID) == parentUUID.getLeastSignificantBits()) {
-                    return equipped;
-                }
-            }
-        }
-        return null;
     }
 }
