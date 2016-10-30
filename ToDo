@@ -1,5 +1,7 @@
 To Do:
 
+    test set partial ticks == 1
+
     1.11
         Rewrite mod again
             use IItemHandler Cap?

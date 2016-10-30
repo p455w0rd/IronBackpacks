@@ -1,11 +1,11 @@
 ------------------------------------------------------
-Version 1.10.2 - 2.2.8
+Version 1.10.2 - 2.3.0
 ------------------------------------------------------
 Additions
 - None
 
 Changes
-- None
+- CHANGED HOW PLAYER DATA IS INTERNALLY STORED FOR BACKPACKS. REMOVE YOUR EQUIPPED BACKPACK BEFORE UPDATING OR IT WILL DISAPPEAR.
 
 Bug Fixes
 - None
